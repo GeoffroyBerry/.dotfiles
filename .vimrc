@@ -10,7 +10,7 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'tell-k/vim-autopep8'
+Plug 'tell-k/vim-autopep8'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'preservim/nerdtree'
@@ -36,6 +36,8 @@ set path+=**
 set wildmenu
 set wildignore+=**/node_modules/**
 set nocompatible
+
+set backspace=indent,eol,start
 
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -104,3 +106,4 @@ hi Normal guibg=NONE ctermbg=NONE "remove theme background
 filetype plugin indent on
 " automatically format every time saving a file
 let g:autopep8_on_save = 1
+let g:autopep8_disable_show_diff=1
