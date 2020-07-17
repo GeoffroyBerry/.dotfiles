@@ -8,15 +8,21 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
+" gruvbox theme
 Plug 'morhetz/gruvbox'
+"coc vim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" A Vim Plugin for Lively Previewing LaTeX PDF Output
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'tell-k/vim-autopep8'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'preservim/nerdtree'
+" Color selector
 Plug 'KabbAmine/vCoolor.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+" Vim training
 Plug 'ThePrimeagen/vim-be-good'
 call plug#end()
 
@@ -36,6 +42,7 @@ set path+=**
 set wildmenu
 set wildignore+=**/node_modules/**
 set nocompatible
+set encoding=utf-8
 
 set backspace=indent,eol,start
 
@@ -50,12 +57,29 @@ set shortmess+=c
 set number
 set rnu
 set t_Co=256
+
+" tab 
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
 set ai
-set hlsearch
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix
+au BufNewFile,BufRead *.js,*.html,*.css
+    \ set tabstop=2 |
+    \ set softtabstop=2 |
+    \ set shiftwidth=2 | 
+    \ set noexpandtab
+
+" set hlsearch
+set nohlsearch
 set ruler
 
 set updatetime=150
@@ -63,7 +87,7 @@ set updatetime=150
 set splitbelow
 set splitright
 
-set pastetoggle=<F10>
+set pastetoggle=<F9>
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -89,10 +113,15 @@ endfunction
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
+" Add line when pressing enter
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
+" YCM
+"let g:ycm_autoclose_preview_window_after_completion=1
+" coc vim
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
-nnoremap <C-p> :GFiles<CR>
+nnoremap <C-p> :Files<CR> "GFiles"
 
 let g:vcoolor_map = '<leader>c'
 let g:vcool_ins_rgb_map = '<leader>r'   " Insert rgb color.
@@ -105,5 +134,6 @@ set bg=dark
 hi Normal guibg=NONE ctermbg=NONE "remove theme background 
 filetype plugin indent on
 " automatically format every time saving a file
-let g:autopep8_on_save = 1
+" let g:autopep8_on_save = 1
 let g:autopep8_disable_show_diff=1
+let g:livepreview_cursorhold_recompile = 0
