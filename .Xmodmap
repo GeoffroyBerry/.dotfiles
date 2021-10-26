@@ -1,0 +1,4 @@
+! make caps lock do escape
+
+remove Lock = Caps_Lock
+keysym Caps_Lock = Escape

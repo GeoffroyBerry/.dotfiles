@@ -1,4 +1,4 @@
-" plugins
+" plugins install
 let need_to_install_plugins = 0
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -10,6 +10,8 @@ endif
 call plug#begin('~/.vim/plugged')
 " gruvbox theme
 Plug 'morhetz/gruvbox'
+" dracula theme
+Plug 'dracula/vim', { 'as': 'dracula' }
 "coc vim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " A Vim Plugin for Lively Previewing LaTeX PDF Output
@@ -20,10 +22,16 @@ Plug 'mattn/emmet-vim'
 Plug 'preservim/nerdtree'
 " Color selector
 Plug 'KabbAmine/vCoolor.vim'
+" ColorCodes Highligh
+Plug 'ap/vim-css-color'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'preservim/nerdcommenter'
+" Debug
+Plug 'puremourning/vimspector'
 " Vim training
-Plug 'ThePrimeagen/vim-be-good'
+" Plug 'ThePrimeagen/vim-be-good'
 call plug#end()
 
 filetype plugin indent on
@@ -43,6 +51,13 @@ set wildmenu
 set wildignore+=**/node_modules/**
 set nocompatible
 set encoding=utf-8
+set noswapfile
+
+set ssop-=options    " do not store global and local values in a session
+set ssop-=folds      " do not store folds
+
+" add mouse support
+set mouse=a
 
 set backspace=indent,eol,start
 
@@ -58,12 +73,14 @@ set number
 set rnu
 set t_Co=256
 
+set nowrap
+
 " tab 
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
-set ai
+set autoindent
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
     \ set softtabstop=4 |
@@ -115,6 +132,15 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 " Add line when pressing enter
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
 
 " YCM
 "let g:ycm_autoclose_preview_window_after_completion=1
@@ -123,15 +149,36 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
 nnoremap <C-p> :Files<CR> "GFiles"
 
-let g:vcoolor_map = '<leader>c'
+
+let mapleader = ","
+let g:vcoolor_map = '<leader>e'
 let g:vcool_ins_rgb_map = '<leader>r'   " Insert rgb color.
 " let g:vcool_ins_hsl_map = '<NEW_MAPPING>'   " Insert hsl color.
 let g:vcool_ins_rgba_map = '<leader>R'    " Insert rgba color.
 
+
+"vimspector
+"let g:vimspector_enable_mappings = 'HUMAN'
+nnoremap <leader>dd :call vimspector#Launch()<CR>
+
+nmap <leader>d<space> <Plug>VimspectorContinue
+nmap <leader>ds <Plug>VimspectorStop
+nmap <leader>dR <Plug>VimspectorRestart
+
+nmap <leader>db <Plug>VimspectorToggleBreakpoint
+nmap <leader>dc <Plug>VimspectorToggleConditionalBreakpoint
+nmap <leader>df <Plug>VimspectorAddFunctionBreakpoint
+nmap <leader>drc <Plug>VimspectorRunToCursor
+
+nmap <leader>dj <Plug>VimspectorStepOver
+nmap <leader>dl <Plug>VimspectorStepInto
+nmap <leader>dk <Plug>VimspectorStepOut
+
 syntax on
-colorscheme  gruvbox "zenburn 
-set bg=dark
-hi Normal guibg=NONE ctermbg=NONE "remove theme background 
+colorscheme dracula "gruvbox zenburn 
+"set bg=dark
+"next line removes theme background
+hi Normal guibg=NONE ctermbg=NONE  
 filetype plugin indent on
 " automatically format every time saving a file
 " let g:autopep8_on_save = 1
