@@ -147,7 +147,7 @@ endif
 " coc vim
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
-nnoremap <C-p> :Files<CR> "GFiles"
+nnoremap <C-p> :Files<CR>
 
 
 let mapleader = ","

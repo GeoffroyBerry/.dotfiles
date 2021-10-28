@@ -1,3 +1,13 @@
 import:
   - ~/.config/alacritty/dracula.yml
 
+
+window:
+  padding:
+    x: 5
+    y: 5
+  opacity: 0.81
+
+font:
+  normal:
+    family: DejaVu Sans Mono

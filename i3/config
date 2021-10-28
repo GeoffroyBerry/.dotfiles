@@ -39,12 +39,15 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-set $term alacritty
+set $term alacritty --class terminal,terminal
+set $ide alacritty --class IDE,IDE
 # start a terminal
-bindsym $mod+Return exec $term #i3-sensible-terminal
+bindsym $mod+Return exec "$term" 
+# start ide
+bindsym $mod+c exec "$ide"
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id rofi -show drun # dmenu_run
@@ -107,31 +110,30 @@ bindsym $mod+q focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-#\u00e00f"
 set $ws1 "1: " 
 set $ws2 "2: "
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
+set $ws3 "3: "
+set $ws4 "4: "
+set $ws5 "5: "
+set $ws6 "6: "
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
 set $monitorCenter "DVI-D-0"
-set $monitorRight "HDMI-0"
+#set $monitorRight "HDMI-0"
 
-workspace $ws1 output $monitorCenter
-workspace $ws2 output $monitorCenter
-workspace $ws3 output $monitorCenter
-workspace $ws4 output $monitorCenter
-workspace $ws5 output $monitorCenter
-workspace $ws6 output $monitorCenter
-workspace $ws7 output $monitorCenter
-workspace $ws8 output $monitorCenter
-workspace $ws9 output $monitorCenter
-workspace $ws10 output $monitorCenter
+#workspace $ws1 output $monitorCenter
+#workspace $ws2 output $monitorCenter
+#workspace $ws3 output $monitorCenter
+#workspace $ws4 output $monitorCenter
+#workspace $ws5 output $monitorCenter
+#workspace $ws6 output $monitorCenter
+#workspace $ws7 output $monitorCenter
+#workspace $ws8 output $monitorCenter
+#workspace $ws9 output $monitorCenter
+#workspace $ws10 output $monitorCenter
 
 # switch to workspace
 bindsym $mod+ampersand workspace number $ws1
@@ -157,17 +159,37 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+ccedilla move container to workspace number $ws9
 bindsym $mod+Shift+agrave move container to workspace number $ws10
 
-assign [class="Alacritty"] $ws1
+for_window [class="IDE"] move to workspace $ws1
 assign [class="Brave-browser"] $ws2
+for_window [class="terminal"] move to workspace $ws3
+for_window [class="libreoffice-calc"] move to workspace $ws4
 
-exec --no-startup-id compton
+for_window [class="keepassxc"] floating enable, move to workspace $ws6
+
+# load background and theme
 exec --no-startup-id feh --bg-fill ~/Images/quality/Dragon-Wallpapers-Backgrounds.jpg
-exec --no-startup-id xmodmap ~/.Xmodmap
 exec --no-startup-id xrdb ~/.Xresources
-exec --no-startup-id $term
+#TODO not working find solution
+exec_always --no-startup-id xmodmap ~/.Xmodmap
+
+# startup programs
+exec --no-startup-id "$IDE"
+exec --no-startup-id "$term"
 exec --no-startup-id brave-browser
+exec --no-startup-id libreoffice --calc
+
+exec --no-startup-id keepassxc
+
+#xset makes sure siji font is loaaded and screen saver is disabled
 exec --no-startup-id xset +fp /home/geoff/.local/share/fonts
 exec --no-startup-id xset fp rehash
+exec --no-startup-id xset s off
+exec --no-startup-id xset -dpms
+
+#make sure numlock is on
+exec --no-startup-id numlockx on
+
+exec_always --no-startup-id "killall compton; compton"
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
