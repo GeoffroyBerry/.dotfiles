@@ -39,12 +39,17 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-set $term alacritty --class terminal,terminal
+set $file-explorer nautilus
 set $ide alacritty --class IDE,IDE
+set $term alacritty --class terminal,terminal
+set $term-start alacritty --class terminal-start,terminal-start
+#set $ide alacritty --class IDE,IDE
 # start a terminal
 bindsym $mod+Return exec "$term" 
 # start ide
 bindsym $mod+c exec "$ide"
+#start file explorer
+bindsym $mod+p exec "$file-explorer"
 
 # kill focused window
 bindsym $mod+shift+q kill
@@ -161,7 +166,7 @@ bindsym $mod+Shift+agrave move container to workspace number $ws10
 
 for_window [class="IDE"] move to workspace $ws1
 assign [class="Brave-browser"] $ws2
-for_window [class="terminal"] move to workspace $ws3
+for_window [class="terminal-start"] move to workspace $ws3
 for_window [class="libreoffice-calc"] move to workspace $ws4
 
 for_window [class="keepassxc"] floating enable, move to workspace $ws6
@@ -173,8 +178,8 @@ exec --no-startup-id xrdb ~/.Xresources
 exec_always --no-startup-id xmodmap ~/.Xmodmap
 
 # startup programs
-exec --no-startup-id "$IDE"
 exec --no-startup-id "$term"
+exec --no-startup-id "$term-start"
 exec --no-startup-id brave-browser
 exec --no-startup-id libreoffice --calc
 

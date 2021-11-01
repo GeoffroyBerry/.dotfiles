@@ -111,6 +111,8 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 map <C-n> :NERDTreeToggle<CR>
+
+
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -156,6 +158,10 @@ let g:vcool_ins_rgb_map = '<leader>r'   " Insert rgb color.
 " let g:vcool_ins_hsl_map = '<NEW_MAPPING>'   " Insert hsl color.
 let g:vcool_ins_rgba_map = '<leader>R'    " Insert rgba color.
 
+let g:user_emmet_leader_key='<leader>'
+
+nnoremap <leader>s :source ~/.vimrc<CR>
+
 
 "vimspector
 "let g:vimspector_enable_mappings = 'HUMAN'
@@ -184,3 +190,55 @@ filetype plugin indent on
 " let g:autopep8_on_save = 1
 let g:autopep8_disable_show_diff=1
 let g:livepreview_cursorhold_recompile = 0
+
+" set up tab labels with tab number, buffer name, number of windows
+function MyTabLine()
+  let s = ''
+  for i in range(tabpagenr('$'))
+    " select the highlighting
+    if i + 1 == tabpagenr()
+      let s .= '%#TabLineSel#'
+    else
+      let s .= '%#TabLine#'
+    endif
+
+    " set the tab page number (for mouse clicks)
+    let s .= '%' . (i + 1) . 'T'
+
+    " the label is made by MyTabLabel()
+    let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
+  endfor
+
+  " after the last tab fill with TabLineFill and reset tab page nr
+  let s .= '%#TabLineFill#%T'
+
+  " right-align the label to close the current tab page
+  if tabpagenr('$') > 1
+    let s .= '%=%#TabLine#%999Xclose'
+  endif
+
+  return s
+endfunction
+function MyTabLabel(n)
+  let buflist = tabpagebuflist(a:n)
+  let winnr = tabpagewinnr(a:n)
+  let bn = bufname(buflist[winnr - 1])
+  let filename = matchstr(bn, '[^/]*$')
+  let tn_limit = 20
+  let fn_limit = 12
+  if !empty(filename) && len(filename) > fn_limit
+      let filename = filename[0:fn_limit-2] . '..'
+  endif
+  let res = bn
+  if len(res) > tn_limit
+      if empty(filename)
+          let res = bn[0:5] . '~' . bn[-fn_limit:-1]
+      elseif len(filename) == len(bn)
+          let res = filename
+      else
+          let res = bn[0:5] . '~' . '/' . filename
+      endif
+  endif
+  return a:n . '[' . res . ']'
+endfunction
+set tabline=%!MyTabLine()
