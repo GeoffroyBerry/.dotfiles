@@ -176,6 +176,7 @@ exec --no-startup-id feh --bg-fill ~/Images/quality/Dragon-Wallpapers-Background
 exec --no-startup-id xrdb ~/.Xresources
 #TODO not working find solution
 exec_always --no-startup-id xmodmap ~/.Xmodmap
+exec_always --no-startup-id xmodmap -e "clear lock"
 
 # startup programs
 exec --no-startup-id "$term"

@@ -1,3 +1,4 @@
+" Plugins ----- {{{
 " plugins install
 let need_to_install_plugins = 0
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -32,20 +33,23 @@ Plug 'preservim/nerdcommenter'
 Plug 'puremourning/vimspector'
 " Vim training
 " Plug 'ThePrimeagen/vim-be-good'
+" markdown
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 call plug#end()
-
-filetype plugin indent on
-syntax on
 
 if need_to_install_plugins == 1
     echo "Installing plugins..."
     silent! PlugInstall
     echo "Done!"
+    silent! CocInstall coc-css coc-deno coc-eslint coc-json coc-pairs coc-prettier coc-python coc-rls coc-snippets coc-solargraph coc-tsserver
     q
 endif
 
-nmap <F8> :TagbarToggle<CR>
+filetype plugin indent on
+" }}}
 
+" General Settings ------ {{{
 set path+=**
 set wildmenu
 set wildignore+=**/node_modules/**
@@ -105,16 +109,37 @@ set splitbelow
 set splitright
 
 set pastetoggle=<F9>
+" }}}
 
+" General Mappings ----- {{{
+let mapleader = ","
+
+" navigating between splits
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" reload vim config
+nnoremap <leader>vs :source ~/.vimrc<CR>
+" edit vim config
+nnoremap <leader>ve :e ~/.vimrc<CR>
+" auto escape in insert mode (rarely type words that have jj in them)
+imap jj <esc>
+imap kk <esc>
+imap hh <esc>
+" }}}
+
+" NERDTree settings ----- {{{
 map <C-n> :NERDTreeToggle<CR>
-
-
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" }}}
 
+" tagbar settings ----- {{{
+nmap <F8> :TagbarToggle<CR>
+" }}}
+
+" cocvim settings ----- {{{
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
@@ -144,25 +169,28 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
-" YCM
-"let g:ycm_autoclose_preview_window_after_completion=1
 " coc vim
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
+" }}}
+
+" fzf settings ---- {{{
 nnoremap <C-p> :Files<CR>
+" }}}
 
-
-let mapleader = ","
+" Color Picker settings ------ {{{
 let g:vcoolor_map = '<leader>e'
 let g:vcool_ins_rgb_map = '<leader>r'   " Insert rgb color.
 " let g:vcool_ins_hsl_map = '<NEW_MAPPING>'   " Insert hsl color.
 let g:vcool_ins_rgba_map = '<leader>R'    " Insert rgba color.
+" }}}
 
+" emmet settings {{{
+" ,, will execute emmet
 let g:user_emmet_leader_key='<leader>'
+" }}}
 
-nnoremap <leader>s :source ~/.vimrc<CR>
-
-
+" VimSpector bindings (debugging plugin) -------- {{{
 "vimspector
 "let g:vimspector_enable_mappings = 'HUMAN'
 nnoremap <leader>dd :call vimspector#Launch()<CR>
@@ -179,18 +207,28 @@ nmap <leader>drc <Plug>VimspectorRunToCursor
 nmap <leader>dj <Plug>VimspectorStepOver
 nmap <leader>dl <Plug>VimspectorStepInto
 nmap <leader>dk <Plug>VimspectorStepOut
+" }}}
 
+" Theme and Colors ----- {{{
 syntax on
 colorscheme dracula "gruvbox zenburn 
 "set bg=dark
 "next line removes theme background
 hi Normal guibg=NONE ctermbg=NONE  
 filetype plugin indent on
+" }}}
+
+" Python autopep8 settings ----- {{{
 " automatically format every time saving a file
 " let g:autopep8_on_save = 1
 let g:autopep8_disable_show_diff=1
-let g:livepreview_cursorhold_recompile = 0
+" }}}
 
+" latex settings -------- {{{
+let g:livepreview_cursorhold_recompile = 0
+" }}}
+
+" Tabs Naming ------- {{{
 " set up tab labels with tab number, buffer name, number of windows
 function MyTabLine()
   let s = ''
@@ -242,3 +280,16 @@ function MyTabLabel(n)
   return a:n . '[' . res . ']'
 endfunction
 set tabline=%!MyTabLine()
+" }}}
+
+" Markdown preview settings ------- {{{
+let g:mkdp_browser = 'chromium'
+" }}}
+
+" za to toggle folding ;)
+" adds folding to .vimrc ----- {{{
+augroup config_setting
+    autocmd!
+    autocmd FileType vim setlocal foldlevel=0 foldmethod=marker
+augroup END
+" }}}
