@@ -17,7 +17,13 @@ key = "p"
 
 [[keybind]]
 command = "Execute"
-value = "alacritty"
+value = "rofi -show drun"
+modifier = ["modkey"]
+key = "d"
+
+[[keybind]]
+command = "Execute"
+value = "alacritty -e zsh"
 modifier = ["modkey", "Shift"]
 key = "Return"
 

@@ -13,17 +13,20 @@ dot_link () {
 }
 
 # using alphabetical order is cool :)
-#dot_link alacritty/alacritty.yml .config/alacritty/alacritty.yml 
-#dot_link alacritty/dracula.yml .config/alacritty/dracula.yml 
-#dot_link compton.conf .config/compton.conf 
-#dot_link fontconfig/fonts.conf .config/fontconfig/fonts.conf 
-#dot_link i3/config .config/i3/config
-#dot_link i3status/config .config/i3status/config
-#dot_link .tmux.conf .tmux.conf
-#dot_link .vimrc .vimrc
-#dot_link .Xmodmap .Xmodmap
-#dot_link .xprofile .xprofile
-#dot_link .Xresources .Xresources
+dot_link alacritty/alacritty.yml .config/alacritty/alacritty.yml 
+dot_link alacritty/dracula.yml .config/alacritty/dracula.yml 
+dot_link compton.conf .config/compton.conf 
+dot_link fontconfig/fonts.conf .config/fontconfig/fonts.conf 
+dot_link i3/config .config/i3/config
+dot_link i3status/config .config/i3status/config
 dot_link leftwm/config.toml .config/leftwm/config.toml
 dot_link leftwm/themes/my_theme .config/leftwm/themes/current
+dot_link nvim/init.vim .config/nvim/init.vim
+dot_link .tmux.conf .tmux.conf
+dot_link .vimrc .vimrc
+dot_link .xinitrc .xinitrc
+dot_link .Xmodmap .Xmodmap
+dot_link .xprofile .xprofile
+dot_link .Xresources .Xresources
+dot_link .zshrc .zshrc
 
