@@ -1,2 +1,21 @@
 # set key repeat rate  [delay] [repeat per sec]
-xset r rate 220 50
+xset s off
+xset -dpms
+#xset r rate 220 50
+#wacom settings
+xsetwacom set 15 Button 1 11
+xsetwacom set 15 Button 2 12
+xsetwacom set 15 Button 3 13
+xsetwacom set 15 Button 8 14
+xbindkeys &
+#imwheel -b "45"
+#feh --bg-scale ~/images/desktop-bg/TheHost_Seraphim.jpg &
+
+# fixing login issues of some softs
+#eval $(gnome-keyring-daemon --start)
+#export SSH_AUTH_SOCK
+
+numlockx &
+#dwmblocks &
+
+setxkbmap -option caps:escape

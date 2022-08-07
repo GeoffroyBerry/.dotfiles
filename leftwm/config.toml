@@ -1,7 +1,7 @@
 modkey = "Mod4"
 mousekey = "Mod4"
 workspaces = []
-tags = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+tags = ["", "", "", "離", "", "", "7", "", "9"]
 layouts = ["MainAndVertStack", "MainAndHorizontalStack", "MainAndDeck", "GridHorizontal", "EvenHorizontal", "EvenVertical", "Fibonacci", "CenterMain", "CenterMainBalanced", "Monocle", "RightWiderLeftStack", "LeftWiderRightStack"]
 layout_mode = "Workspace"
 scratchpad = []
@@ -11,7 +11,19 @@ focus_new_windows = true
 
 [[keybind]]
 command = "Execute"
-value = "dmenu_run"
+value = "scrot -e 'mv $f ~/images/screenshots/'"
+modifier = []
+key = "Print"
+
+[[keybind]]
+command = "Execute"
+value = "scrot -l style=solid,width=3 -s  -e 'mv $f ~/images/screenshots/'"
+modifier = ["Shift"]
+key = "Print"
+
+[[keybind]]
+command = "Execute"
+value = "alacritty -e ranger"
 modifier = ["modkey"]
 key = "p"
 
@@ -23,7 +35,19 @@ key = "d"
 
 [[keybind]]
 command = "Execute"
+value = "rofi -show run"
+modifier = ["modkey", "Shift"]
+key = "d"
+
+[[keybind]]
+command = "Execute"
 value = "alacritty -e zsh"
+modifier = ["modkey"]
+key = "Return"
+
+[[keybind]]
+command = "Execute"
+value = "alacritty -e tmux"
 modifier = ["modkey", "Shift"]
 key = "Return"
 
@@ -36,6 +60,11 @@ key = "q"
 command = "SoftReload"
 modifier = ["modkey", "Shift"]
 key = "r"
+
+[[keybind]]
+command = "ToggleFullScreen"
+modifier = ["modkey"]
+key = "f"
 
 [[keybind]]
 command = "Execute"
@@ -71,8 +100,8 @@ key = "j"
 
 [[keybind]]
 command = "MoveWindowTop"
-modifier = ["modkey"]
-key = "Return"
+modifier = ["modkey", "Shift"]
+key = "t"
 
 [[keybind]]
 command = "FocusWindowUp"
@@ -94,55 +123,15 @@ command = "PreviousLayout"
 modifier = ["modkey", "Control"]
 key = "j"
 
-[[keybind]]
-command = "FocusWorkspaceNext"
-modifier = ["modkey"]
-key = "l"
+#[[keybind]]
+#command = "FocusWorkspacePrevious"
+#modifier = ["modkey"]
+#key = "h"
 
-[[keybind]]
-command = "FocusWorkspacePrevious"
-modifier = ["modkey"]
-key = "h"
-
-[[keybind]]
-command = "MoveWindowUp"
-modifier = ["modkey", "Shift"]
-key = "Up"
-
-[[keybind]]
-command = "MoveWindowDown"
-modifier = ["modkey", "Shift"]
-key = "Down"
-
-[[keybind]]
-command = "FocusWindowUp"
-modifier = ["modkey"]
-key = "Up"
-
-[[keybind]]
-command = "FocusWindowDown"
-modifier = ["modkey"]
-key = "Down"
-
-[[keybind]]
-command = "NextLayout"
-modifier = ["modkey", "Control"]
-key = "Up"
-
-[[keybind]]
-command = "PreviousLayout"
-modifier = ["modkey", "Control"]
-key = "Down"
-
-[[keybind]]
-command = "FocusWorkspaceNext"
-modifier = ["modkey"]
-key = "Right"
-
-[[keybind]]
-command = "FocusWorkspacePrevious"
-modifier = ["modkey"]
-key = "Left"
+#[[keybind]]
+#command = "FocusWorkspaceNext"
+#modifier = ["modkey"]
+#key = "l"
 
 [[keybind]]
 command = "GotoTag"

@@ -13,11 +13,11 @@ colors:
     foreground: '#f8f8f2'
     bright_foreground: '#ffffff'
   cursor:
-    text: CellBackground
-    cursor: CellForeground
+    text: '#21222c'
+    cursor: '#bd93f9'
   vi_mode_cursor:
-    text: CellBackground
-    cursor: CellForeground
+    text: '#21222c'
+    cursor: '#ff79c6'
   search:
     matches:
       foreground: '#44475a'

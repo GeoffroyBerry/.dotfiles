@@ -26,6 +26,9 @@ if [ -x "$(command -v feh)" ]; then
   feh --bg-scale $SCRIPTPATH/background.jpg
 fi
 
+# Bind escape to caps lock TODO down script equivalent
+xmodmap -e "clear lock"
+xmodmap -e "keysym Caps_Lock = Escape"
 
 index=0
 monitor="$(polybar -m | grep +0+0 | sed s/:.*// | tac)"
