@@ -27,6 +27,7 @@ dot_link nvim/ .config/nvim
 dot_link rofi/config.rasi .config/rofi/config.rasi
 dot_link .tmux.conf .tmux.conf
 dot_link .vimrc .vimrc
+dot_link .vimspector.json .vimspector.json
 dot_link .xinitrc .xinitrc
 dot_link .Xmodmap .Xmodmap
 dot_link .xprofile .xprofile

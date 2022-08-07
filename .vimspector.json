@@ -1,0 +1,30 @@
+{
+  "configurations": {
+    "c": {
+      "adapter": "vscode-cpptools",
+      "filetypes": [ "cpp", "c", "objc", "rust" ],
+      "configuration": {
+        "request": "launch",
+        "program": "${cwd}/${fileBasenameNoExtension}",
+        "args": [],
+        "cwd": "${cwd}",
+        "environment": [ ],
+        "externalConsole": true,
+        "MIMode": "gdb"
+      }
+    },
+    "python": {
+      "adapter": "debugpy",
+      "filetypes": ["python"],
+      "configuration": {
+        "request": "launch",
+        "type": "python",
+        "program": "${cwd}/${fileBasename}",
+        "args": [],
+        "cwd": "${cwd}",
+        "environment": [ ],
+        "externalConsole": false
+      }
+    }
+  }
+}
