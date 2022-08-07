@@ -23,7 +23,7 @@ dot_link i3/config .config/i3/config
 dot_link i3status/config .config/i3status/config
 dot_link leftwm/config.toml .config/leftwm/config.toml
 dot_link leftwm/themes/my_theme .config/leftwm/themes/current
-dot_link nvim/init.vim .config/nvim/init.vim
+dot_link nvim/ .config/nvim
 dot_link rofi/config.rasi .config/rofi/config.rasi
 dot_link .tmux.conf .tmux.conf
 dot_link .vimrc .vimrc

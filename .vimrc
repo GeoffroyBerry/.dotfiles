@@ -215,7 +215,7 @@ let g:user_emmet_leader_key='<leader>'
 " VimSpector bindings (debugging plugin) -------- {{{
 "vimspector
 " TODO make general config
-"let g:vimspector_configurations = 'some path' 
+"let g:vimspector_configurations = '' 
 let g:vimspector_enable_mappings = 'HUMAN'
 " mnemonic 'di' = 'debug inspect' (pick your own, if you prefer!)
 
@@ -326,7 +326,6 @@ let g:R_openpdf = 0
 " }}}
 
 " Godot settings ------ {{{
-let g:mkdp_browser = 'chromium'
 let g:godot_executable = '~/programs/godot'
 " }}}
 " za to toggle folding ;)
