@@ -9,14 +9,19 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-" gruvbox theme
+"themes
 Plug 'morhetz/gruvbox'
-" dracula theme
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'ayu-theme/ayu-vim'
+Plug 'ghifarit53/tokyonight-vim'
+Plug 'bluz71/vim-moonfly-colors'
+Plug 'bluz71/vim-nightfly-guicolors'
+Plug 'fcpg/vim-fahrenheit'
+Plug 'cseelus/vim-colors-lucid'
+
 "coc vim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " A Vim Plugin for Lively Previewing LaTeX PDF Output
-"Plug 'lervag/vimtex'
 Plug 'xuhdev/vim-latex-live-preview' ", { 'for': 'tex' }
 Plug 'tell-k/vim-autopep8'
 Plug 'majutsushi/tagbar'
@@ -28,7 +33,7 @@ Plug 'KabbAmine/vCoolor.vim'
 Plug 'ap/vim-css-color'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'rust-lang/rust.vim'
+"Plug 'rust-lang/rust.vim'
 Plug 'preservim/nerdcommenter'
 " Debug
 Plug 'puremourning/vimspector'
@@ -38,6 +43,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'OmniSharp/omnisharp-vim'
 " Godot
 Plug 'habamax/vim-godot'
+Plug 'elixir-editors/vim-elixir'
 call plug#end()
 
 if need_to_install_plugins == 1
@@ -136,10 +142,24 @@ imap kk <esc>
 imap hh <esc>
 " }}}
 
+" Theme and Colors ----- {{{
+syntax on
+set termguicolors
+"let ayucolor="dark"
+colorscheme nightfly "gruvbox dracula zenburn 
+"set bg=dark
+"next line removes theme background
+hi Normal guibg=NONE ctermbg=NONE  
+filetype plugin indent on
+" }}}
+
 " build / run bindings ----- {{{
-autocmd filetype python nnoremap <leader>b :w <bar> exec '!python '.shellescape('%')<CR>
-autocmd filetype c,cpp nnoremap <leader>b :w <bar> exec '!(test -f ./Makefile && make) <bar><bar> gcc '.shellescape('%').' -g -O0 -o '.shellescape('%:r')<CR>
-"autocmd filetype cpp nnoremap <leader>b :w <bar> exec 'make'<CR>
+autocmd filetype python nnoremap <leader>r :w <bar> exec '!python '.shellescape('%')<CR>
+autocmd filetype c nnoremap <leader>b :w <bar> exec '!(test -f ./Makefile && make) <bar><bar> gcc '.shellescape('%').' -g -O0 -o '.shellescape('%:r')<CR>
+autocmd filetype cpp nnoremap <leader>b :w <bar> exec '!(test -f ./Makefile && make) <bar><bar> g++ '.shellescape('%').' -g -O0 -o '.shellescape('%:r')<CR>
+autocmd filetype c,cpp nnoremap <leader>r :w <bar> exec '!./'.shellescape('%:r')<CR>
+autocmd filetype rust nnoremap <leader>b :w <bar> exec '!cargo build'<CR>
+autocmd filetype rust nnoremap <leader>r :w <bar> exec '!cargo run'<CR>
 " }}}
 
 " NERDTree settings ----- {{{
@@ -167,11 +187,19 @@ inoremap <silent><expr> <TAB>
 \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
 
 " Add line when pressing enter
-"inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
             \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
@@ -241,15 +269,6 @@ nmap <LocalLeader><F12> <Plug>VimspectorDownFrame
 "nmap <leader>dk <Plug>VimspectorStepOut
 " }}}
 
-" Theme and Colors ----- {{{
-syntax on
-colorscheme gruvbox "dracula zenburn 
-"set bg=dark
-"next line removes theme background
-hi Normal guibg=NONE ctermbg=NONE  
-filetype plugin indent on
-" }}}
-
 " Python autopep8 settings ----- {{{
 " automatically format every time saving a file
 " let g:autopep8_on_save = 1
@@ -316,7 +335,7 @@ set tabline=%!MyTabLine()
 " }}}
 
 " Markdown preview settings ------- {{{
-let g:mkdp_browser = 'chromium'
+let g:mkdp_browser = 'librewolf'
 " }}}
 
 " nvim-R settings ------- {{{

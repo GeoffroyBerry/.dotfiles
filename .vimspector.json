@@ -2,11 +2,24 @@
   "configurations": {
     "c": {
       "adapter": "vscode-cpptools",
-      "filetypes": [ "cpp", "c", "objc", "rust" ],
+      "filetypes": [ "cpp", "c", "objc" ],
       "configuration": {
         "request": "launch",
         "program": "${cwd}/${fileBasenameNoExtension}",
         "args": [],
+        "cwd": "${cwd}",
+        "environment": [ ],
+        "externalConsole": true,
+        "MIMode": "gdb"
+      }
+    },
+    "rust": {
+      "adapter": "vscode-cpptools",
+      "filetypes": [ "rust" ],
+      "configuration": {
+        "request": "launch",
+        "program": "${cwd}/target/debug/${rust_executable_name}",
+        "args": [ "*${CommandLineArgs}" ],
         "cwd": "${cwd}",
         "environment": [ ],
         "externalConsole": true,

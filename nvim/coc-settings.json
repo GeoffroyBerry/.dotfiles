@@ -1,4 +1,6 @@
 {
+    "suggest.fixInsertedWord": false,
+    "diagnostic.checkCurrentLine": true,
     "diagnostic.virtualText": true,
     "diagnostic.virtualTextCurrentLineOnly": false,
     "languageserver": {
@@ -31,9 +33,5 @@
     },
     "python.linting.enabled": true,
     "python.linting.flake8Enabled": false,
-    "coc.source.vimtex.filetypes": [
-        "tex",
-        "plaintex",
-        "latex"
-    ]
+    "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh"
 }
